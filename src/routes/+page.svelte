@@ -1,5 +1,6 @@
 <script>
 	import TotalCard from '$lib/components/TotalCard.svelte';
+	import InfoCard from '$lib/components/InfoCard.svelte';
 	import { LuPackage } from 'svelte-icons-pack/lu';
 	import { TrOutlinePackages } from 'svelte-icons-pack/tr';
 
@@ -53,25 +54,27 @@
 
 	<!-- MELLAN: Stycke- och Packages-info -->
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-		<div class="space-y-4 rounded-2xl bg-white p-6 shadow-md">
-			<h2 class="text-primary mb-4 flex gap-2 text-2xl font-bold">
-				<Icon src={LuPackage} /> Stycke Info
-			</h2>
-			<div class="text-lg">Stycke: {incomingPieces}</div>
-			<div class="text-lg">HD: {incomingHd}</div>
-			<div class="text-success text-lg font-semibold">Total Stycke: {totalPieces}</div>
-		</div>
-		<div class="space-y-4 rounded-2xl bg-white p-6 shadow-md">
-			<h2 class="text-primary mb-4 flex gap-2 text-2xl font-bold">
-				<Icon src={TrOutlinePackages} /> Packages Info
-			</h2>
-			<div class="text-lg">Packages: {incomingPackages}</div>
-			<div class="text-lg">SP: {incomingSp}</div>
-			<div class="text-success text-lg font-semibold">
-				Total Packages: {totalPackages} <br />
-				<span class="text-sm font-light text-black">{processedPerHour.toFixed(0)} Pkg/h</span>
-			</div>
-		</div>
+		<InfoCard
+			title="Stycke Info"
+			bgColor="bg-primary"
+			icon={LuPackage}
+			rows={[
+				{ label: 'Stycke', value: incomingPieces },
+				{ label: 'HD', value: incomingHd },
+				{ label: 'Total Stycke', value: totalPieces }
+			]}
+		/>
+
+		<InfoCard
+			title="Packages Info"
+			icon={TrOutlinePackages}
+			rows={[
+				{ label: 'Packages', value: incomingPackages },
+				{ label: 'SP', value: incomingSp },
+				{ label: 'Total Packages', value: totalPackages },
+				{ label: '', value: `${processedPerHour.toFixed(0)} Pkg/h` }
+			]}
+		/>
 	</div>
 
 	<!-- Antal fel per produkt från gårdagen -->

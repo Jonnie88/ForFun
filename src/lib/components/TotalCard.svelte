@@ -7,7 +7,9 @@
 	export let bgColor = 'bg-primary';
 </script>
 
-<div class={`rounded-2xl p-6 text-white shadow-md ${bgColor}`}>
+<div
+	class={`rounded-2xl p-6 text-white shadow-md ${bgColor} transform transition-transform hover:scale-105 hover:shadow-lg`}
+>
 	<h2 class="flex items-center gap-2 text-2xl font-bold">
 		<Icon src={icon} class="h-6 w-6" />
 		{title}
