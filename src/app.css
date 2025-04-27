@@ -1,3 +1,12 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+@theme {
+	--color-primary: oklch(0.36 0.0384 250.36);
+	--color-secondary: oklch(0.64 0.1407 39.49);
+	--color-accent: oklch(0.8 0.1134 78.21);
+	--color-background: oklch(0.96 0.0111 89.72);
+	--color-success: oklch(0.79 0.0568 138.56);
+	--color-warning: oklch(0.8 0.0485 26.31);
+}
