@@ -6,7 +6,7 @@
 
 	import { Icon } from 'svelte-icons-pack';
 
-	let yesterdaysPackages = 7400;
+	let yesterdaysPackages = 4000;
 	let incomingPackages = 7500;
 	let incomingPieces = 2000;
 	let incomingHd = 300;

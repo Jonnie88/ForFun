@@ -4,7 +4,8 @@
 	let { children } = $props();
 
 	let menuItems = [
-		{ name: 'Dashboard', href: '#' },
+		{ name: 'Dashboard', href: '/' },
+		{ name: 'Prognos', href: '/ForFun/prognos' },
 		{ name: 'Inkommande Paket', href: '#' },
 		{ name: 'Rapporter', href: '#' },
 		{ name: 'Inställningar', href: '#' }
