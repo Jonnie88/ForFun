@@ -43,7 +43,9 @@
 	}
 
 	$: packagesPerHour =
-		todayForecast.hoursActive > 0 ? todayForecast.paket + todayForecast.sp / trackHours : 0;
+		todayForecast.hoursActive > 0
+			? (todayForecast.paket + todayForecast.sp) / todayForecast.hoursActive
+			: 0;
 </script>
 
 <div class="grid w-full grid-cols-12 grid-rows-1 gap-4 p-6">
@@ -162,7 +164,7 @@
 
 			<div class="flex items-center justify-between">
 				<span class="text-gray-600">Hastighet</span>
-				<span class="font-bold">{packagesPerHour}</span>
+				<span class="font-bold">{packagesPerHour.toFixed(2)} Pkg/h</span>
 			</div>
 		</div>
 	</div>
