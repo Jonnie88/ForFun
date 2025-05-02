@@ -41,6 +41,9 @@
 		});
 		console.log('Data sparad:', $dailyData);
 	}
+
+	$: packagesPerHour =
+		todayForecast.hoursActive > 0 ? todayForecast.paket + todayForecast.sp / trackHours : 0;
 </script>
 
 <div class="grid w-full grid-cols-12 grid-rows-1 gap-4 p-6">
@@ -69,6 +72,13 @@
 					<label>Paket idag:</label><input
 						type="number"
 						bind:value={todayForecast.paket}
+						class="input"
+					/>
+				</div>
+				<div>
+					<label>Antal timmar banan är aktiv:</label><input
+						type="number"
+						bind:value={todayForecast.hoursActive}
 						class="input"
 					/>
 				</div>
@@ -148,6 +158,11 @@
 			<div class="flex items-center justify-between">
 				<span class="text-gray-600">Paket</span>
 				<span class="font-bold">{todayForecast.paket}</span>
+			</div>
+
+			<div class="flex items-center justify-between">
+				<span class="text-gray-600">Hastighet</span>
+				<span class="font-bold">{packagesPerHour}</span>
 			</div>
 		</div>
 	</div>
