@@ -6,7 +6,7 @@
 	let menuItems = [
 		{ name: 'Dashboard', href: '/' },
 		{ name: 'Prognos', href: '/ForFun/prognos' },
-		{ name: 'Inkommande Paket', href: '#' },
+		{ name: 'Produktivitets timer', href: '/ForFun/produktivitetstimer' },
 		{ name: 'Rapporter', href: '#' },
 		{ name: 'Inställningar', href: '#' }
 	];

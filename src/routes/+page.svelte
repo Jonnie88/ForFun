@@ -3,15 +3,12 @@
 	import InfoCard from '$lib/components/InfoCard.svelte';
 	import { LuPackage } from 'svelte-icons-pack/lu';
 	import { TrOutlinePackages } from 'svelte-icons-pack/tr';
-
+	import { dailyData } from '../stores/dataStore';
 	import { Icon } from 'svelte-icons-pack';
 
-	let yesterdaysPackages = 4000;
-	let incomingPackages = 7500;
-	let incomingPieces = 2000;
-	let incomingHd = 300;
-	let incomingSp = 500;
-	let hoursWorked = 4;
+	let yesterday = { sp: 0, hd: 0, stycke: 0, paket: 0 };
+	let todayForecast = { sp: 0, hd: 0, stycke: 0, paket: 0, hoursActive: 0 };
+	let errors = { sp: 0, hd: 0, stycke: 0, paket: 0 };
 
 	let errorsYesterday = [
 		{ product: 'Stycke', errors: 5 },
@@ -20,19 +17,28 @@
 		{ product: 'Paket', errors: 4 }
 	];
 
-	$: totalPieces = incomingPieces + incomingHd;
-	$: totalPackages = incomingPackages + incomingSp;
-	$: total = incomingPackages + incomingPieces;
-	$: processedPerHour = hoursWorked > 0 ? (incomingPackages + incomingSp) / hoursWorked : 0;
+	$: if ($dailyData) {
+		yesterday = $dailyData.yesterday;
+		todayForecast = $dailyData.todayForecast;
+		errors = $dailyData.errors;
+	}
 
-	// Dynamisk totalfel och färg
+	$: totalPieces = todayForecast.stycke + todayForecast.hd;
+	$: totalPackages = todayForecast.sp + todayForecast.paket;
+	$: total = totalPieces + totalPackages;
+	$: processedPerHour =
+		todayForecast.hoursActive > 0
+			? (todayForecast.sp + todayForecast.paket) / todayForecast.hoursActive
+			: 0;
+
+	// Dynamisk totalfel och farg
 	$: totalErrors = errorsYesterday.reduce((sum, item) => sum + item.errors, 0);
-	$: totalErrorColor = totalErrors > 0.02 ? 'bg-warning' : 'bg-success';
+	$: totalErrorColor = totalErrors > 0 ? 'bg-warning' : 'bg-success';
 
-	// Beräkna felprocent för varje produkt baserat på gårdagens paket
+	// Beräkna felprocent
 	$: errorsYesterday = errorsYesterday.map((item) => ({
 		...item,
-		percentage: ((item.errors / yesterdaysPackages) * 100).toFixed(2)
+		percentage: ((item.errors / 4000) * 100).toFixed(2)
 	}));
 </script>
 
@@ -45,7 +51,7 @@
 
 		<TotalCard
 			title="Total Packages"
-			value={totalPieces}
+			value={totalPackages}
 			icon={TrOutlinePackages}
 			bgColor="bg-accent"
 		/>
@@ -59,8 +65,8 @@
 			bgColor="bg-primary"
 			icon={LuPackage}
 			rows={[
-				{ label: 'Stycke', value: incomingPieces },
-				{ label: 'HD', value: incomingHd },
+				{ label: 'Stycke', value: todayForecast.stycke },
+				{ label: 'HD', value: todayForecast.hd },
 				{ label: 'Total Stycke', value: totalPieces }
 			]}
 		/>
@@ -69,8 +75,8 @@
 			title="Packages Info"
 			icon={TrOutlinePackages}
 			rows={[
-				{ label: 'Packages', value: incomingPackages },
-				{ label: 'SP', value: incomingSp },
+				{ label: 'Packages', value: todayForecast.paket },
+				{ label: 'SP', value: todayForecast.sp },
 				{ label: 'Total Packages', value: totalPackages },
 				{ label: '', value: `${processedPerHour.toFixed(0)} Pkg/h` }
 			]}
@@ -89,7 +95,7 @@
 			<span class="text-right">Fel (%)</span>
 		</div>
 
-		{#each errorsYesterday as error}
+		{#each errors as error}
 			<div class="grid grid-cols-3 border-b py-2">
 				<span>{error.product}</span>
 				<span class="text-center font-bold">{error.errors} st</span>

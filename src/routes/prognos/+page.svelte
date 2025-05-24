@@ -134,6 +134,7 @@
 					<label>Fel Paket:</label><input type="number" bind:value={errors.paket} class="input" />
 				</div>
 			</div>
+			<button on:click={handleSave} class="btn-primary"> Spara prognos </button>
 		</div>
 	</div>
 

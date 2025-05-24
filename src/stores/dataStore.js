@@ -8,7 +8,7 @@ const initial = stored
 			yesterday: { sp: 0, hd: 0, stycke: 0, paket: 0 },
 			todayForecast: { sp: 0, hd: 0, stycke: 0, paket: 0 },
 			errors: { sp: 0, hd: 0, stycke: 0, paket: 0 },
-			hours: 0,
+			hours: 4,
 			date: new Date().toISOString().split('T')[0]
 		};
 
